@@ -10,6 +10,7 @@
 \usepackage{textcomp}
 \usepackage{graphicx}
 \graphicspath{{.}}
+\usepackage[nofoot,hdivide={2cm,*,2cm},vdivide={2cm,*,2cm}]{geometry}
 
 \author{Jacek Długopolski}
 \title{Kolokwium 1}
@@ -43,7 +44,7 @@
  \begin{verbatim}
   ssh-copy-id -i ~/.ssh/id_rsa.pub d324130@pwi.ii.uni.wroc.pl
  \end{verbatim}
- -i identityfile Use only the key(s) contained in identityfile (rather than looking for identities via ssh-add(1) or in the defaultIDfile)[man ssh-copy-id]
+ -i identityfile Use only the key(s) contained in identityfile (rather than looking for identities via ssh-add(1) or in the defaultIDfile)\cite{sshcopy}
  \\
  \includegraphics[scale=0.4]{ssh-copy-id2.png}
 
@@ -58,7 +59,7 @@
  \vspace{0.3cm}
  
  \includegraphics[scale=0.4]{pwi-sprawdzian.png}
- \item Aby przekierować swój klucz lokalny tak by był dostępny także na zdalnym komputerze, na którym się loguję, dodaję do pliku konfiguracyjnego: ForwardAgent yes.\\
+ \item Aby przekierować swój klucz lokalny tak by był dostępny także na zdalnym komputerze, na którym się loguję, dodaję do pliku konfiguracyjnego: ForwardAgent yes\cite{forward}\\
  \includegraphics[scale=0.4]{ssh-pwi-sprawdzian.png}
  \vspace{0.3cm}
  \\Rozwiązanie polegające na wygenerowaniu kolejnego klucza jest 'brzydkie', ponieważ tworzy również klucz prywatny, który pozostaje na zdalnym komputerze.
@@ -79,7 +80,7 @@ Następnie wypakowuję ten plik w repozytorium:
  tar -xf zadanie.tar.gz
 \end{verbatim}
 -x wyodrębnia pliki\\
--f określa nazwę pliku archiwum tar\\
+-f określa nazwę pliku archiwum tar\cite{tar}\\
 \includegraphics[scale=0.4]{tar.png}\\
 I komituję zmiany:
 \begin{verbatim}
@@ -90,7 +91,7 @@ I komituję zmiany:
 \begin{verbatim}
  echo -n "d324130" | md5sum
 \end{verbatim}
--n nie dolicza znaku nowej linii na końcu napisu podanego jako argument [www.bytefreaks.net]\\
+-n nie dolicza znaku nowej linii na końcu napisu podanego jako argument\cite{bytefreaks}\\
 \includegraphics[scale=0.4]{md5sum.png}\\
 Odnajduję w gąszczu pobranych folderów katalog:
 \begin{verbatim}
@@ -113,10 +114,34 @@ a) Sprawdzam jaki jest procentowy stosunek użytkowników z Polski do wszystkich
   sed 's/.*://' users.db > passwords.txt
   sed -i 's/|.*//' passwords.txt
  \end{verbatim}
- -i działa w miejscu - modyfikuje plik podany w komendzie\\
+ -i działa w miejscu - modyfikuje plik podany w komendzie\cite{sed}\\
  \includegraphics[scale=0.4]{passwords.png}\vspace{0.3cm}\\
  W wyniku czego otrzymuję plik zawierający tylko hasła:\\
  \includegraphics[scale=0.4]{pass.png}
+
+\section*{Zadanie 4}
+Kompiluję dwukrotnie plik zadanie1.tex, w wyniku czego otrzymuję plik zadanie1.pdf:
+\begin{verbatim}
+ pdflatex zadanie1.tex
+\end{verbatim}
+
+Kopiuję ostateczną wersję sprawozdania na zdalne repozytorium\cite{scp}:
+\begin{verbatim}
+ scp zadanie1.pdf zadanie1.tex d324130@pwi.ii.uni.wroc.pl:~
+\end{verbatim}
+W podobny sposób przenoszę pliki .png.\\
+Następnie komituję komendą:
+\begin{verbatim}
+ git commit -m "Ostatnia wersja"
+\end{verbatim}
+I robię pusha na GitHuba:
+\begin{verbatim}
+ git push -u origin main
+\end{verbatim}
+W wyniku czego moje repozytorium wygląda następująco:\\
+\includegraphics[scale=0.2]{git.png}\\
+(z wyjątkiem nazwy ostatniego komita)
+
 
 
 
@@ -127,7 +152,22 @@ a) Sprawdzam jaki jest procentowy stosunek użytkowników z Polski do wszystkich
 
 
  \end{enumerate}
-
+\begin{thebibliography}{6}
+    \bibitem{sshcopy}
+    man ssh-copy-id
+    \bibitem{forward}
+    www.cloudsavvit.com/25/what-is-ssh-agent-forwarding-and-how-do-you-use-it/
+    \bibitem{tar}
+    www.linux.pl/man/index.php?command=tar
+	\bibitem{bytefreaks}
+	www.bytefreaks.net/gnulinux/creating-an-md5-hash-of-a-string-in-bash
+	\bibitem{sed}
+	www.geeksforgeeks.org/sed-command-in-linux-unix-with-exaples
+	\bibitem{scp}
+	www.haydenjames.io/linux-securely-copy-files-using-scp/
+    
+\end{thebibliography}
+ 
 \end{document}
 
 
